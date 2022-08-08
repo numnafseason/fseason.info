@@ -1,15 +1,16 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars');
 const handlers = require('./lib/handlers')
+const bodyParser = require('body-parser');
 
 const app = express()
-
+app.disable('x-powerd-by')
 // configure Handlebars view engine
 app.engine('handlebars', expressHandlebars.engine({
     defaultLayout: 'main',
 }))
 app.set('view engine', 'handlebars')
-
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.static(__dirname + '/public'))
 
 const port = process.env.PORT || 3000

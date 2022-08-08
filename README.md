@@ -25,5 +25,8 @@ npm i --save-dev eslint-plugin-jest
 ```
 - "lint":"eslint meadowlark.js lib" pakage.json 추가
 
-#경로
-image.png
+## 경로 
+- 프로토콜://호스트:포트/경로?쿼리스트링#해시
+- 해시(fragment)는 브라우저에서만 사용
+
+## 템플릿 엔진 선택
