@@ -1,5 +1,32 @@
 # fseason.info
 
+## 서버 기본 상태
+```
+.vscode-server 폴더 사이즈 - 199M
+```
+
+## 최초 설치 상태
+```
+[guser@nodejs ~]$ node -v
+v12.13.1
+[guser@nodejs ~]$ npm -v
+6.12.1
+[guser@nodejs ~]$ npm ls -g --depth=0
+/web/.nvm/versions/node/v12.13.1/lib
+└── npm@6.12.1
+[guser@nodejs ~]$ nvm install 16.16.0
+[guser@nodejs ~]$ nvm alias default 16.16.0
+[guser@nodejs ~]$ npm ls -g --depth=0
+/web/.nvm/versions/node/v16.16.0/lib
+├── corepack@0.10.0
+└── npm@8.11.0
+
+[guser@nodejs ~]$ npm i pm2 --location=global
+[guser@nodejs ~]$ pm2 install pm2-logrotate
+//pm2 로그 사이즈만 M 로 제한 처리함.
+[guser@nodejs ~]$ pm2 set pm2-logrotate:max_size 1m
+```
+
 ## JEST 테스트 프래임워크 사용
 
 ### 테스트 모니터링 모드 

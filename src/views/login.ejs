@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('includes/head', {title: 'Add new post' }) %>
+        <link rel="stylesheet" href="/styles/forms.css">
+</head>
+
+<body>
+    <%- include('includes/header') %>
+        <main>
+            <h1>Sign In Now</h1>
+            <form action="/login" method="POST"> 
+                <div class="form-control">
+                    <label for="email">e-mail</label>
+                    <input type="text" id="email" name="email" required maxlength="255">
+                </div>
+                <div class="form-control">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required maxlength="255">
+                </div> 
+                <button class="btn">SIGN <INput:btn></INput:btn></button>
+                <div>
+                    <p>Don't have an Account <a href="/register-user">Create an account</a></p>
+                </div>
+            </form> 
+        </main>
+</body>
+
+</html>
