@@ -4,9 +4,11 @@
   "description": "",
   "main": "meadowlark.js",
   "scripts": {
-    "start": "nodemon meadowlark.js",
-    "lint": "eslint meadowlark.js lib",
-    "test": "jest --watch"
+    "start": "pm2 start src/fseasonapp.js --watch --name fseasonapp",
+    "restart": "pm2 restart fseasonapp",
+    "stop": "pm2 stop fseasonapp",
+    "test": "jest --watch",
+    "lint": "eslint src/fseasonapp.js src"
   },
   "repository": {
     "type": "git",
@@ -21,8 +23,11 @@
   "homepage": "https://github.com/numnafseason/fseason.info#readme",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
-    "express-handlebars": "^6.0.6"
+    "express-handlebars": "^6.0.6",
+    "joi": "^17.6.0",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "eslint": "^8.21.0",
