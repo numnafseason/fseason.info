@@ -3,7 +3,7 @@ const joi = require('joi')
 
 function registerValidator(data) {
     const schema = joi.object({
-        user: Joi.string().required(),
+        email: Joi.string().required(),
         password: Joi.string().required()
     })
     return schema.validate(data)
@@ -11,7 +11,7 @@ function registerValidator(data) {
 
 function loginValidator(data) {
     const schema = joi.object({
-        user: Joi.string().required(),
+        email: Joi.string().required(),
         password: Joi.string().required()
     })
     return schema.validate(data)

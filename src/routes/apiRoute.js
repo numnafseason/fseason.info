@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const authController = require('../controllers/auth.controller')
 
-router.post("/api/login", (req, res) => res.send('Home'));
-routes.get('/api/register', authController.Register); 
+router.post("/api/login", authController.Login);
+router.post('/api/register', authController.Register); 
 
 
 

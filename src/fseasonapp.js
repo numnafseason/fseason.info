@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express'); 
+
 const app = express();
  
 const blogRoute = require('./routes/blogRoute'); 
@@ -12,6 +13,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true })); // Parse incoming request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files (e.g. CSS files)
 app.use(express.static(path.join(__dirname, 'build'))); // Serve static files (e.g. CSS files)
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 app.use(blogRoute);
 app.use(apiRoute);

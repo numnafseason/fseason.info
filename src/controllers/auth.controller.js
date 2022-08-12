@@ -1,9 +1,17 @@
 const db = require('../utils/database');
 const bcryptjs = require('bcryptjs'); 
-const RegisterValidation = require('../validation/RegisterValidation');
+const { registerValidator, loginValidator } = require('../validators/userValidator');
+//const RegisterValidation = require('../validation/RegisterValidation');
 
 //
 const Login = async (req, res) => {
+    const body = req.body;
+    const { error } = loginValidator(body);
+
+    if (error) {
+        return res.status(400).send(error.details);
+    }
+
     const query = `SELECT * FROM user WHERE email=?`;
     const [user] = await db.query(query, [req.body.email])
 
@@ -20,28 +28,27 @@ const Login = async (req, res) => {
 }
 const Register = async (req, res) => {
     const body = req.body;
-
-    const { error } = RegisterValidation.validate(body);
+    const { error } = registerValidator(body);
 
     if (error) {
         return res.status(400).send(error.details);
     }
-
     if (body.password !== body.password_confirm) {
         return res.status(400).send({
             message: "Password's do not match"
         });
     }
 
-    const repository = getManager().getRepository(User);
-
-    const { password, ...user } = await repository.save({
-        name: body.name,
-        email: body.email,
-        password: await bcyptjs.hash(body.password, 10)
-    });
-
-    res.send(user);
+    const data = [
+        `req.body.name`,
+        `req.body.email`,
+        await bcyptjs.hash(body.password, 10),
+        req.body.role_id,
+    ]
+    console.log(data)
+    const result = await db.query('INSERT INTO user (name,email,password,role_id) values (?)', [data])
+    console.log(result)
+    res.send(result);
 }
 //
 

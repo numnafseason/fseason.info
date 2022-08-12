@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../fseasonapp")
+const app = require("../src/fseasonapp")
 
 describe('first', () => {
  
@@ -19,7 +19,7 @@ describe('first', () => {
         //console.log(res.body)
         //expect(res.message).toEqual({ message:'invalid credentials!'});
 
-        expect(response.statusCode).toEqual(200)
+        expect(response.statusCode).toEqual(404)
     })
 
 })
