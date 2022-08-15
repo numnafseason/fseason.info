@@ -1,6 +1,8 @@
-const path = require('path');
-const express = require('express'); 
+import path from 'path';
+import dotenv from 'dotenv';
+import express, { Express, Request, Response } from "express";
 
+dotenv.config({path:"./.env"});
 const app = express();
  
 const blogRoute = require('./routes/blogRoute'); 
@@ -20,12 +22,14 @@ app.use(express.json())
 app.use(blogRoute);
 app.use(apiRoute);
 
-app.use(function (error, req, res, next) {
-    // Default error handling function
-    // Will become active whenever any route / middleware crashes
-    console.log(error);
-    res.status(500).render('500');
-});
+// app.use(function (error:, req:Request, res:Response, next:Promise) {
+//     // Default error handling function
+//     // Will become active whenever any route / middleware crashes
+//     console.log(error);
+//     res.status(500).render('500');
+// });
+
+console.log(process.env.PORT)
 
 const port = process.env.PORT || 3000
 // node에서 직접 실행한 경우가 아니면 eport 
