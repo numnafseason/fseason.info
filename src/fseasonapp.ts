@@ -5,8 +5,8 @@ import express, { Express, Request, Response } from "express";
 dotenv.config({path:"./.env"});
 const app = express();
  
-const blogRoute = require('./routes/blogRoute'); 
-const apiRoute = require('./routes/apiRoute')
+import blogRoute from './routes/blogRoute'; 
+import apiRoute  from"./routes/apiRoute";
 
 // Activate EJS view engine
 app.set('view engine', 'ejs');
