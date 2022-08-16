@@ -66,3 +66,14 @@ npm i --save-dev eslint-plugin-jest
 - 해시(fragment)는 브라우저에서만 사용
 
 ## 템플릿 엔진 선택
+<<<<<<< HEAD
+=======
+
+# typescript 설정
+## tsconfig.json 생성
+```powershell
+npm i -D typescript @types/express @types/node
+npx tsc --init
+```
+- "lint":"eslint meadowlark.js lib" pakage.json 추가
+>>>>>>> 33695427fae05be1bd8846ef1005f6054b0fb907
