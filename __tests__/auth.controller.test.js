@@ -2,7 +2,7 @@ const request = require("supertest");
 const {faker} = require('@faker-js/faker');
 const app = require('../src/fseasonapp')
 
-test('auth.controller.js | /api/login', async ()=>{
+test('auth.controller.js | POST /api/login', async ()=>{
     const res = await request(app)
         .post('/api/login')
         .send({
@@ -21,7 +21,8 @@ test('auth.controller.js | /api/login', async ()=>{
 })
 
 
-test('auth.controller.js | /api/register', async () => {
+test('auth.controller.js | POST /api/register', async () => {
+    jest.setTimeout(30000)
     const pass = faker.internet.password()
     const body = {
         name: faker.name.lastName(),
@@ -29,12 +30,11 @@ test('auth.controller.js | /api/register', async () => {
         password: pass,
         password_confirm : pass,
         role_id: 1
-    }
-    console.log(body);
+    } 
     const res = await request(app)
         .post('/api/register')
         .send(body)
-    console.log(res.body)
-    expect(res.statusCode).toEqual(400)
+    //console.log(res.body)
+    expect(res.statusCode).toEqual(200)
 
 })

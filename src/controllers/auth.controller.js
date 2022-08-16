@@ -29,8 +29,8 @@ const Login = async (req, res) => {
 const Register = async (req, res) => {
     const body = req.body;
     const { error } = registerValidator(body);
-
-    if (error) {
+    
+    if (error) {        
         return res.status(400).send(error.details);
     }
     if (body.password !== body.password_confirm) {
@@ -40,12 +40,11 @@ const Register = async (req, res) => {
     }
 
     const data = [
-        `req.body.name`,
-        `req.body.email`,
-        await bcyptjs.hash(body.password, 10),
+        req.body.name,
+        req.body.email,
+        await bcryptjs.hash(body.password, 10),
         req.body.role_id,
     ]
-    console.log(data)
     const result = await db.query('INSERT INTO user (name,email,password,role_id) values (?)', [data])
     console.log(result)
     res.send(result);
