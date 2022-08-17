@@ -1,68 +1,46 @@
-import { NextFunction, Request, Response } from "express";
-import {pool} from "@utils/database";
-import bcryptjs from "bcryptjs";
+import { NextFunction, Request, Response } from 'express';
+import { CreateUserDto } from '@dtos/users.dto';
+import { RequestWithUser } from '@interfaces/auth.interface';
+import { User } from '@interfaces/users.interface';
+import AuthService from '@services/auth.service';
 
-const db = pool;
-const {
-  registerValidator,
-  loginValidator,
-} = require("../validators/userValidator");
-//const RegisterValidation = require('../validation/RegisterValidation');
+class AuthController {
+  public authService = new AuthService();
 
-//
-const Login = async (req :Request, res:Response) => {
-  const body = req.body;
-  const { error } = loginValidator(body);
+  public signUp = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData: CreateUserDto = req.body;
+      const signUpUserData: User = await this.authService.signup(userData);
 
-  if (error) {
-    return res.status(400).send(error.details);
-  }
+      res.status(201).json({ data: signUpUserData, message: 'signup' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
-  const query = `SELECT * FROM user WHERE email=?`;
-  const [user] = await db.query(query, [req.body.email]);
+  public logIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData: CreateUserDto = req.body;
+      const { cookie, findUser } = await this.authService.login(userData);
 
-  if (
-    !user ||
-    user.length === 0 ||
-    !(await bcryptjs.compare(req.body.password, user[0].password))
-  ) {
-    return res.status(400).send({
-      message: "invalid credentials!",
-    });
-  }
-  res.json({
-    message: user[0].name,
-  });
-};
-const Register = async (req, res) => {
-  const body = req.body;
-  const { error } = registerValidator(body);
+      res.setHeader('Set-Cookie', [cookie]);
+      res.status(200).json({ data: findUser, message: 'login' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
-  if (error) {
-    return res.status(400).send(error.details);
-  }
-  if (body.password !== body.password_confirm) {
-    return res.status(400).send({
-      message: "Password's do not match",
-    });
-  }
+  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData: User = req.user;
+      const logOutUserData: User = await this.authService.logout(userData);
 
-  const data = [
-    req.body.name,
-    req.body.email,
-    await bcryptjs.hash(body.password, 10),
-    req.body.role_id,
-  ];
-  const result = await db.query(
-    "INSERT INTO user (name,email,password,role_id) values (?)",
-    [data]
-  );
-  console.log(result);
-  res.send(result);
-};
-//
+      res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
+      res.status(200).json({ data: logOutUserData, message: 'logout' });
+    } catch (error) {
+      next(error);
+    }
+  };
+}
 
-module.exports = {
-  Login,
-  Register,
-};
+export default AuthController;
