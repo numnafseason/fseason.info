@@ -9,7 +9,9 @@
     "paths": {
       "*":[
         "node_modules/*",
-      ]
+      ],
+      "@/*":["*"],
+      "@utils":["utils/*"]
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
