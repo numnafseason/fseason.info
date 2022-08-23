@@ -1,5 +1,5 @@
 import { Model, ModelObject } from 'objection';
-import { Blog } from '@/interfaces/blog.interface';
+import { Blog } from '@/interfaces/posts.interface';
 
 export class Posts extends Model implements Blog {
   id!: number;
