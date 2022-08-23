@@ -5,10 +5,11 @@ import { Routes } from '@interfaces/routes.interface';
 import authMiddleware from '@middlewares/auth.middleware';
 import validationMiddleware from '@middlewares/validation.middleware';
 
-class AuthRoute implements Routes {
+class PostsRoute implements Routes {
   public path = '/posts';
   public router = Router();
   public authController = new AuthController();
+  public postCon
 
   constructor() {
     this.initializeRoutes();
@@ -24,4 +25,4 @@ class AuthRoute implements Routes {
   }
 }
 
-export default AuthRoute;
+export default PostsRoute;

@@ -3,8 +3,8 @@ import { CreateUserDto } from '@dtos/users.dto';
 import { User } from '@interfaces/users.interface';
 import userService from '@services/users.service';
 
-class blogController {
-  public userService = new userService();
+class postsController {
+  public postsService = new postsService();
 
   public getPosts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -62,4 +62,4 @@ class blogController {
   };
 }
 
-export default blogController;
+export default postsController;
