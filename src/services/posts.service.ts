@@ -1,14 +1,13 @@
-import { CreatePostDto } from './../dtos/posts.dto';
+import { CreatePostDto } from '@dtos/posts.dto';
 import { Posts } from '@models/posts.model';
 import { hash } from 'bcrypt';
-import { CreateUserDto } from '@dtos/users.dto';
 import { HttpException } from '@exceptions/HttpException';
 import { User } from '@interfaces/users.interface';
 import { Post } from '@/interfaces/posts.interface';
 import { isEmpty } from '@utils/util';
 
 
-class BlogService {
+class PostsService {
   public async findAllPost(): Promise<Post[]> {
     const posts: Post[] = await Posts.query().select().from('posts');
     return posts;
@@ -24,13 +23,12 @@ class BlogService {
   public async createPost(postData: CreatePostDto): Promise<Post> {
     if (isEmpty(postData)) throw new HttpException(400, 'postData is empty');
 
-    const findOist: Post = await Posts.query().select().from('posts').where('id', '=', postData.id).first();
-    if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
+    const findPost: Post = await Posts.query().select().from('posts').where('title', '=', postData.title).first();
+    if (findPost) throw new HttpException(409, `This email ${postData.title} already exists`);
 
-    const hashedPassword = await hash(userData.password, 10);
-    const createUserData: User = await Posts.query()
-      .insert({ ...userData, password: hashedPassword })
-      .into('users');
+    const createPostData: Post = await Posts.query()
+      .insert({ postData })
+      .into('posts');
 
     return createUserData;
   }
@@ -60,4 +58,4 @@ class BlogService {
   }
 }
 
-export default BlogService;
+export default PostsService;

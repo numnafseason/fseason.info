@@ -1,9 +1,12 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsNumber, IsString } from 'class-validator';
 
 export class CreatePostDto {
-    
+
   @IsString()
   public title: string;
   public summary: string;
-  public text:string;
+  public body:string;
+  
+  @IsNumber()
+  public author_id:number;
 }
