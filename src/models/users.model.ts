@@ -6,7 +6,7 @@ export class Users extends Model implements User {
   email!: string;
   password!: string;
 
-  static tableName = 'users'; // database table name
+  static tableName = 'user'; // database table name
   static idColumn = 'id'; // id column name
 }
 
